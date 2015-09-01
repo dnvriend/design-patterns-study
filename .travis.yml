@@ -1,7 +1,8 @@
-gilanguage: scala
-sudo: false
+language: scala
 scala:
-  - "2.11.7"
+  - 2.11.7
+sudo: false
+sbt_args: -no-colors -J-Xss2m
 jdk:
   - oraclejdk8
 branches:
