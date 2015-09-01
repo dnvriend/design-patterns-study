@@ -4,8 +4,8 @@ and future reference but if you find the subject matter interesting and if the i
 then I would be glad! :)
 
 I'm confident in having a good understanding of design patterns, and enough insight / experience when to apply them
-is key into creating agile software and therefor supporting the goals of agile software development like Disciplined
-Agile Delivery (Dad).
+is key into creating agile software and therefor supporting the goals of agile software development like [Disciplined
+Agile Delivery](http://www.disciplinedagiledelivery.com/).
 
 [![Build Status](https://travis-ci.org/dnvriend/design-patterns-study.svg?branch=master)](https://travis-ci.org/dnvriend/design-patterns-study)
 [![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
