@@ -1,0 +1,12 @@
+gilanguage: scala
+sudo: false
+scala:
+  - "2.11.7"
+jdk:
+  - oraclejdk8
+branches:
+  only:
+    - master
+notifications:
+  email:
+    - dnvriend@gmail.com
