@@ -98,5 +98,8 @@ Behavioral patterns are specifically concerned with communication between object
 ## Video's
 * [Stuart Sierra - Functional Design Patterns](https://www.youtube.com/watch?v=etr08mExAI0)
 
+# Links
+* [Design Pattern in Simple Examples](http://www.go4expert.com/articles/design-pattern-simple-examples-t5127)
+
 # Books
 * Pattern oriented software architecture
