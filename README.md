@@ -54,7 +54,7 @@ Behavioral patterns are specifically concerned with communication between object
 * __Command pattern:__ creates objects which encapsulate actions and parameters.
 * Interpreter pattern: implements a specialized language.
 * __Iterator pattern:__ accesses the elements of an object sequentially without exposing its underlying representation.
-* Mediator pattern: allows loose coupling between classes by being the only class that has detailed knowledge of their methods.
+* [Mediator pattern](https://sourcemaking.com/design_patterns/mediator): allows loose coupling between classes by being the only class that has detailed knowledge of their methods.
 * Memento pattern: provides the ability to restore an object to its previous state (undo).
 * __Observer pattern:__ is a publish/subscribe pattern which allows a number of observer objects to see an event.
 * __State pattern:__ allows an object to alter its behavior when its internal state changes.
