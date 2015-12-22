@@ -139,17 +139,93 @@ order to return a result, a number of subsystems (local or remote) are involved.
 So, facade deals with control and workflow.
 
 # Service
-A service is a way of writing an interface to an external system, such as a LDAP identity store, a payment gateway or an 
-application management interface. It's a conceptual way of looking at the external system as a provider of useful services 
-perhaps with internal behaviours rather than a passive lump to be operated upon.
+From: [StackExchange](http://programmers.stackexchange.com/questions/218011/how-accurate-is-business-logic-should-be-in-a-service-not-in-a-model)
+
+It is not easy to define what the responsibilities of a `service` are. `Service` is not a canonical or generic software term. 
+In fact, the suffix `Service` on a class name is a lot like the much-maligned `Manager`: It tells you almost nothing about what 
+the object actually does.
+
+In reality, what a `service` ought to do is highly architecture-specific, so first you have to specify the `architecture` and then the 
+`service`'s responsibility will become clear.
+
+## Traditional Layered Architecture
+In a traditional layered architecture, `service` is literally synonymous with `business logic layer`. It's the layer between UI 
+and Data. Therefore, all business rules go into services. The data layer should only understand basic CRUD operations, and the 
+UI layer should deal only with the mapping of presentation Data Transfer Objects (DTOs) to and from the business objects.
+
+## RPC style
+In an RPC-style distributed architecture (SOAP, UDDI, BPEL, etc.), the `service` is the logical version of a physical endpoint. 
+It is essentially a collection of operations that the maintainer wishes to provide as a public API. Various best practices guides 
+explain that a `service` operation should in fact be a business-level operation (capabilities) and not CRUD, and I tend to agree.
+
+However, because routing everything through an actual remote service can seriously hurt performance, it's normally best not to have 
+these services actually implement the business logic themselves; instead, they should wrap an "internal" set of business objects. 
+A single service might involve one or several business objects.
+
+## Model-View-Controller (MVC)
+In an MVP/MVC/MVVM/MV* architecture, services don't exist at all. Or if they do, the term is used to refer to any generic object 
+that can be injected into a controller or view model. The business logic is in your model. If you want to create "service objects" 
+to orchestrate complicated operations, that's seen as an implementation detail. A lot of people, sadly, implement MVC like this, but 
+it's considered an anti-pattern ([Anemic Domain Model](http://en.wikipedia.org/wiki/Anemic_domain_model)) because the model itself does nothing, it's just a bunch of properties for the UI.
+
+Some people mistakenly think that taking a 100-line controller method and shoving it all into a service somehow makes for a better architecture. 
+It really doesn't; all it does is add another, probably unnecessary layer of indirection. Practically speaking, the controller is still doing 
+the work, it's just doing so through a poorly named `helper` object. I highly recommend [Jimmy Bogard's Wicked Domain Models presentation](http://vimeo.com/43598193) 
+for a clear example of how to turn an [anemic domain model](http://en.wikipedia.org/wiki/Anemic_domain_model) into a useful one. It involves 
+careful examination of the models you're exposing and which operations are actually valid in a business context.
+
+For example, if your database contains Orders, and you have a column for Total Amount, your application probably shouldn't be allowed 
+to actually change that field to an arbitrary value, because (a) it's history and (b) it's supposed to be determined by what's in the 
+order as well as perhaps some other time-sensitive data/rules. Creating a service to manage Orders does not necessarily solve this problem, 
+because user code can still grab the actual Order object and change the amount on it. Instead, the order itself should be responsible for 
+ensuring that it can only be altered in safe and consistent ways.
+
+## Domain Driven Design (DDD)
+In DDD, `services` are meant specifically for the situation [when you have an operation that doesn't properly belong to __any__ aggregate root](http://gorodinski.com/blog/2012/04/14/services-in-domain-driven-design-ddd/). 
+You have to be careful here, because often the need for a `service` can imply that you didn't use the correct roots. But assuming you did, 
+a `service` is used to coordinate operations across multiple roots, or sometimes to handle concerns that don't involve the domain model at all 
+(such as, perhaps, writing information to a BI/OLAP database).
+
+One notable aspect of the DDD service is that it is allowed to use [transaction scripts](http://martinfowler.com/eaaCatalog/transactionScript.html). 
+When working on large applications, you're very likely to eventually run into instances where it's just way easier to accomplish something with a 
+T-SQL or PL/SQL procedure than it is to fuss with the domain model. This is OK, and it belongs in a `service`.
+
+This is a radical departure from the layered-architecture definition of services. A `service layer` encapsulates domain objects; a `DDD service` 
+encapsulates whatever isn't in the domain objects and doesn't make sense to be.
+
+## SOA
+In a Service-Oriented Architecture, a `service` is considered to be the technical authority for a business capability. That means that it is the 
+exclusive owner of a certain subset of the business data and nothing else is allowed to touch that data - not even to just read it.
+
+By necessity, `services` are actually an end-to-end proposition in an SOA. Meaning, a `service` isn't so much a specific component as an 
+entire stack, and your entire application (or your entire business) is a set of these services running side-by-side with no intersection 
+except at the messaging and UI layers. Each service has its own data, its own business rules, and its own UI. They don't need to orchestrate 
+with each other because they are supposed to be business-aligned - and, like the business itself, each `service` has its own set of 
+responsibilities and operates more or less independently of the others.
+
+So, by the SOA definition, every piece of business logic anywhere is contained within the `service`, but then again, so is the entire system. 
+Services in an SOA can have components, and they can have endpoints, but it's fairly dangerous to call any piece of code a `service` because it 
+conflicts with what the original "S" is supposed to mean.
+
+Since SOA is generally pretty keen on messaging, the operations that you might have packaged in a `service` before are generally encapsulated 
+in handlers, but the multiplicity is different. Each handler handles one message type, one operation. It's a strict interpretation of the 
+[Single Responsibility Principle](http://en.wikipedia.org/wiki/Single_responsibility_principle), but makes for great maintainability because 
+every possible operation is in its own class. So you don't really need centralized business logic, because commands represents business operations 
+rather than technical ones.
+
+## Conclusion
+Ultimately, in any architecture you choose, there is going to be some component or layer that has most of the business logic. After all, 
+if business logic is scattered all over the place then you just have spaghetti code. But whether or not you call that component a `service`, 
+and how it's designed in terms of things like number or size of operations, depends on your architectural goals.
+
+There's no right or wrong answer, only what applies to your situation.
 
 # Where to put business logic
 In JavaEE the place to put business logic is in the `business logic` layer or simply `logic`. These are objects that
-communicate with each other, optionally receiving application service services like security and  
-As we are using Actors, 
-the place to put business logic in in traits. When using functional style of programming, the Actor can manage the state
-and the business logic can be mixed in and thus reused where appropriate.
+communicate with each other, optionally receiving services like security and transactions.
 
+As we are using Actors, the place to put business logic are in traits. When using functional style of programming, 
+the Actor can manage the state and the business logic can be mixed in and thus reused where appropriate.
 
 # Reactive Design Patterns
 
