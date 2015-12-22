@@ -93,6 +93,64 @@ Behavioral patterns are specifically concerned with communication between object
 * Customized Control Flow
 * Domain-Specific Language
 
+# Registry
+ A `registry` is a list of items with pointers for where to find the items, like the index on a database table or the 
+card catalog for a library. If you lose a `registry`, the items still exist; you just may need to reindex them. 
+
+# Repository
+A `repository` is an abstraction of a collection of objects. A `repository` stores the actual items (objects), 
+like a database table itself or a library's shelves of books. If you lose a `repository`, the items are gone.
+ 
+The repository is closer to the domain. It acts on aggregate roots (domain objects/entity) and would use multiple
+DAOs to build a single entity. 
+
+# Spring repository
+[Documentation](http://docs.spring.io/spring-data/data-commons/docs/current/reference/html/#repositories)
+
+# CQRS Domain Repository
+The CQRS domain repository gets an aggregate root by its id, and loads/saves the generated events.  
+
+# DAO pattern
+[DAO Pattern](http://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm)
+ 
+The Data Access Object pattern is used to separate low level data accessing API operations from high level business services. 
+Following are the participants in Data Access Object Pattern.
+
+* __Data Access Object Interface__:  an `interface` defines the standard operations to be performed on a model object(s).
+* __Data Access Object concrete class__: concrete class that implements the above interface. This class is responsible to get data from a data source which can be database / xml or any other storage mechanism.
+* __Model Object or Value Object__: the object that is managed by the DAO. It is usually a simple value object like eg. case classes.
+
+The DAO makes sure that the specific implementation is abstracted away behind an `interface` so that the implementation can 
+be switched. It also ensures the correct modularization and cohesion of functionality.
+
+A DAO returns `data` in the broadest sense of the word and is the very definition (a data access object). How the DAO 
+accesses the data, whether it be by accessing a queue, an XML file, or by querying one or more tables is not defined.
+
+So, the DAO deals with persistence issues and is an abstraction of data persistence. Its also closer to the database / persistency
+than the `repository` would be. A `repository` only deals with `domain objects`
+ 
+In the trenches, DAOs are sometimes called `providers`.
+
+# Facade pattern
+The facade pattern is used to hide the `call complexity` of a system. It provides a simple abstraction, a single method,
+that abstracts away all the `call complexity` to several subsystems. For example, a client does not have to know that, in 
+order to return a result, a number of subsystems (local or remote) are involved. 
+
+So, facade deals with control and workflow.
+
+# Service
+A service is a way of writing an interface to an external system, such as a LDAP identity store, a payment gateway or an 
+application management interface. It's a conceptual way of looking at the external system as a provider of useful services 
+perhaps with internal behaviours rather than a passive lump to be operated upon.
+
+# Where to put business logic
+In JavaEE the place to put business logic is in the `business logic` layer or simply `logic`. These are objects that
+communicate with each other, optionally receiving application service services like security and  
+As we are using Actors, 
+the place to put business logic in in traits. When using functional style of programming, the Actor can manage the state
+and the business logic can be mixed in and thus reused where appropriate.
+
+
 # Reactive Design Patterns
 
 ## Video's

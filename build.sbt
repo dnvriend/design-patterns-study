@@ -27,7 +27,4 @@ headers := Map(
   "conf" -> Apache2_0("2015", "Dennis Vriend", "#")
 )
 
-// enable plugins //
-lazy val designPatternsStudy = project
-  .in(file("."))
-  .enablePlugins(AutomateHeaderPlugin)
+enablePlugins(AutomateHeaderPlugin)
