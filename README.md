@@ -244,9 +244,39 @@ which doesn't mean that it is an anti-pattern, it is the opinion of Martin Fowle
 
 In an anemic domain design, business logic is typically implemented in separate classes which transform the state of the 
 domain objects. Fowler calls such external classes [transaction scripts](http://martinfowler.com/eaaCatalog/transactionScript.html). 
-This pattern is a common approach in Java applications, possibly encouraged by technologies such as early versions of EJB's Entity Beans, 
-as well as in .NET applications following the Three-Layered Services Application architecture where such objects fall into the category of 
-"Business Entities" (although Business Entities can also contain behavior).
+
+This pattern is a common approach in Java applications, possibly encouraged by technologies such as early versions of EJB's Entity Beans, as well as in .NET applications following the Three-Layered Services Application architecture where such objects fall into the category of "Business Entities" (although Business Entities can also contain behavior).
+
+## Reasons why models are anemic
+* Near-total absence of business logic, as in an application which is primarily an assemblage of CRUD screens?
+* Service-oriented architecture in which the 'domain objects' are in fact data transfer objects?
+* Political or pragmatic considerations such as code ownership or forward/backward compatibility that excessively impede refactoring?
+* Applying procedural/relational design in an otherwise object-oriented language?
+
+In any case, if [I]((http://stackoverflow.com/questions/1156644/anemic-domain-models-vs-domain-model-in-a-simple-domain-driven-design)) were to pick a simple rule of thumb for the boundary between domain model logic and service logic, it would be that interacting with related objects is fine within the domain, while accessing the "outside world" (user interface, web services, etc) probably doesn't belong in the domain model.
+
+## Another point of view
+* Anemic domain model = database tables mapped to objects (only field values, no real behavior)
+* Rich domain model = a collection of objects that expose behavior
+
+If you want to create a simple CRUD application, maybe an anemic model with a classic MVC framework is enough. But if you want to implement some kind of logic, __anemic model means that you will not do object oriented programming__.
+
+__Note:__ Object behavior has nothing to do with persistence. A different layer (Gateways/DAO's, Data Mappers, Repositories etc.) is responsible for persisting domain objects. The key point is that the domain model implements the logic and operates on the state.
+
+## DTO’S, DDD & THE ANEMIC DOMAIN MODEL
+[I](http://elegantcode.com/2009/11/13/dtos-ddd-the-anemic-domain-model/) agree that an anemic domain model is bad, if there is no behavior then what’s the point right?
+
+__DTO:__ To me, a DTO moves data between ‘tiers’. They are the packaged data ready for transport. A JSON object is also a DTO.
+
+__Read model:__ This would be a different model than your real Domain model.  A Read model is very lightweight, `thin` and anemic.  Its purpose is to serve aggregated data to a specific screen or message. A DTO, to me, can be a read model, as too could be a View Model.
+
+__The domain model:__ rich and full of behavior. This model is most valuable when performing complex business rules during the saving and updating of data within a given transaction. It can also be used to read data too.
+
+Splitting the models allows the reads & writes to fluctuate independently, so which leads to higher maintainability. These models can also run on different tiers/nodes to increase scalability (read/cache tier, write tier), which are all choices.
+
+At some point, whether off a view or an inbound DTO, there will be mapping back into the domain model. This ‘friction’ or ‘impedance’ is pretty easy to manage using an assembler/translator, or a tool like AutoMapper.
+
+Greg Young & Udi Dahan take this concept further and apply a programming principle called [Command-Query Responsibility Separation/Seggregation](http://martinfowler.com/bliki/CQRS.html) with distributed programming and SOA.
 
 ## Benefits
 * Clear separation between logic and data; (Procedural programming). Each procedure operates on the data.
