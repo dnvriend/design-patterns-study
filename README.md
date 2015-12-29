@@ -7,6 +7,8 @@ I'm confident in having a good understanding of design patterns, and enough insi
 is key into creating agile software and therefor supporting the goals of agile software development like [Disciplined
 Agile Delivery](http://www.disciplinedagiledelivery.com/).
 
+> Patterns always have two parts: the how and the when. Not just do you need to know how to implement them, you also have to know when to use them and when to leave them alone. <quote>Martin Fowler</quote>
+
 [![Build Status](https://travis-ci.org/dnvriend/design-patterns-study.svg?branch=master)](https://travis-ci.org/dnvriend/design-patterns-study)
 [![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
@@ -129,7 +131,7 @@ accesses the data, whether it be by accessing a queue, an XML file, or by queryi
 So, the DAO deals with persistence issues and is an abstraction of data persistence. Its also closer to the database / persistency
 than the `repository` would be. A `repository` only deals with `domain objects`
  
-In the trenches, DAOs are sometimes called `providers`.
+In the trenches, DAOs are sometimes called `providers` and Martin Fowler defines them as [Table Data Gateway pattern](http://martinfowler.com/eaaCatalog/tableDataGateway.html).
 
 # Facade pattern
 The facade pattern is used to hide the `call complexity` of a system. It provides a simple abstraction, a single method,
@@ -213,12 +215,19 @@ in handlers, but the multiplicity is different. Each handler handles one message
 every possible operation is in its own class. So you don't really need centralized business logic, because commands represents business operations 
 rather than technical ones.
 
-## Conclusion
+## Conclusion 
 Ultimately, in any architecture you choose, there is going to be some component or layer that has most of the business logic. After all, 
 if business logic is scattered all over the place then you just have spaghetti code. But whether or not you call that component a `service`, 
 and how it's designed in terms of things like number or size of operations, depends on your architectural goals.
 
 There's no right or wrong answer, only what applies to your situation.
+
+To add to the discussion, services can be:
+
+- Stateless, Stateful or ,
+- Be `local` or `remote`
+- Will be used by clients (local or remote clients) by means of a `Service Contract` ie. `interface`
+- Dependent on the technology (stack), can be supplied with container services like security and transactions.
 
 # Where to put business logic
 In JavaEE the place to put business logic is in the `business logic` layer or simply `logic`. These are objects that
@@ -226,6 +235,48 @@ communicate with each other, optionally receiving services like security and tra
 
 As we are using Actors, the place to put business logic are in traits. When using functional style of programming, 
 the Actor can manage the state and the business logic can be mixed in and thus reused where appropriate.
+
+# Anemic Domain Model
+[Anemic domain model](https://en.wikipedia.org/wiki/Anemic_domain_model) is the use of a software domain model where the 
+domain objects contain little or no business logic (validations, calculations, business rules etc.). This pattern was first 
+[described by Martin Fowler](https://en.wikipedia.org/wiki/Anemic_domain_model), who considers the practice an anti-pattern,
+which doesn't mean that it is an anti-pattern, it is the opinion of Martin Fowler.
+
+In an anemic domain design, business logic is typically implemented in separate classes which transform the state of the 
+domain objects. Fowler calls such external classes [transaction scripts](http://martinfowler.com/eaaCatalog/transactionScript.html). 
+This pattern is a common approach in Java applications, possibly encouraged by technologies such as early versions of EJB's Entity Beans, 
+as well as in .NET applications following the Three-Layered Services Application architecture where such objects fall into the category of 
+"Business Entities" (although Business Entities can also contain behavior).
+
+## Benefits
+* Clear separation between logic and data; (Procedural programming). Each procedure operates on the data.
+* Works well for simple applications.
+* Results in stateless logic, which facilitates scaling out
+* Avoids the need for a complex OO-Database mapping layer.
+* It follows the Single Responsibility principle giving a class no more than one reason to change (the data changes).
+
+## Liabilities
+* Logic __cannot__ be implemented in a truly object-oriented way, because logic and data is separated.
+* Violation of the encapsulation and information hiding principles (an object operates upon its state via methods/messages)
+* Needs a separate business layer to contain the logic otherwise located in a domain model. It also means that domain model's 
+objects cannot guarantee their correctness at any moment, because their validation and mutation logic is placed somewhere outside 
+(most likely in multiple places).
+* Needs a service layer when sharing domain logic across differing consumers of an object model (clients of the domain, local
+or remote, communicate with the domain by means of a __service__)
+*  Makes a model less expressive.
+
+## Transaction script pattern
+Organizes business logic by procedures where each procedure handles a single request from the presentation.
+
+Most business applications can be thought of as a series of transactions. A transaction may view some information as 
+organized in a particular way, another will make changes to it. Each interaction between a client system and a server 
+system contains a certain amount of logic. In some cases this can be as simple as displaying information in the database. 
+In others it may involve many steps of validations and calculations. 
+
+A Transaction Script organizes all this logic primarily as a single procedure, making calls directly to the database 
+or through a thin database wrapper. Each transaction will have its own Transaction Script, although common subtasks can 
+be broken into subprocedures." In his book "Enterprise Application Patterns", Fowler noted that the transaction script 
+pattern is OK for many simple business applications, and avoids the need for a complex OO-database mapping layer.
 
 # Reactive Design Patterns
 
