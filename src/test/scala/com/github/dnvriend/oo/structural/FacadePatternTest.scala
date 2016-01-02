@@ -21,11 +21,17 @@ import com.github.dnvriend.TestSpec
 class FacadePatternTest extends TestSpec {
 
   /**
-    * Intent:
+    * ==Overview==
+    * This pattern allows a (simplifying) object to unify a (potentially more complex) interface to a set of objects.
+    * The Façade can often be viewed as an interface to a subsystem. It has the effect of simplifying the interface
+    * between the clients and the subsystem objects. A client only has to deal with a single Facade object.
+    * The Facade object then deals with the interactions with multiple subsystem objects.
+    *
+    * ==Intent==
     * Provide a unified interface to a set of interfaces in a `subsystem`.
     * Facade defines a higher-level interface that makes the subsystem easier to use.
     *
-    * Description:
+    * ==Description==
     * Facade provides a simple interface to a complex subsystem. This is done in order to shield clients,
     * that does not need the lower level functionality provided by subsystems, from the complexity.
     *
@@ -38,17 +44,16 @@ class FacadePatternTest extends TestSpec {
     * The use of facades as entry points promotes weak coupling between subsystem components and lets you vary the
     * components without affecting the clients.
     *
-    * Componentization:
+    * ==Componentization==
     * The things that differ are the `subsystems`, their intercommunication, which we cannot abstract over, and the
     * interface of the facade itself. Nothing stays the same between different instantiations, which means there is
     * nothing to modularize and reuse.
     *
-    * Scala:
+    * ==Scala==
     * The trait Facade is an abstract facade with nested subsystem classes that are only accessible by Facade and subclasses.
     * The method foo is part of the public interface of the facade accessible by clients, it calls one of the subsystems with
     * another subsystem as argument. The singleton object FacadeA is an example of a concrete facade
     */
-
   trait Facade {
     // contains refs to `subsystems`
     type A <: SubSystemA

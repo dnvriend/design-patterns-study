@@ -16,6 +16,6 @@
 
 package com.github.dnvriend
 
-import org.scalatest.{GivenWhenThen, FlatSpec, Matchers}
+import org.scalatest.{ GivenWhenThen, FlatSpec, Matchers }
 
 class TestSpec extends FlatSpec with Matchers with GivenWhenThen
