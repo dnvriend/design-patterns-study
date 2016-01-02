@@ -3,14 +3,13 @@ This project is a study into object oriented and functional design patterns, imp
 and future reference but if you find the subject matter interesting and if the information here helps you in your study
 then I would be glad! :)
 
+[![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
+
 I'm confident in having a good understanding of design patterns, and enough insight / experience when to apply them
 is key into creating agile software and therefor supporting the goals of agile software development like [Disciplined
 Agile Delivery](http://www.disciplinedagiledelivery.com/).
 
 > Patterns always have two parts: the how and the when. Not just do you need to know how to implement them, you also have to know when to use them and when to leave them alone. <quote>Martin Fowler</quote>
-
-[![Build Status](https://travis-ci.org/dnvriend/design-patterns-study.svg?branch=master)](https://travis-ci.org/dnvriend/design-patterns-study)
-[![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 # What are Patterns?
 There are different categories of software patterns:
@@ -20,6 +19,11 @@ There are different categories of software patterns:
 how the execution flows, etc..
 * Idioms: (pattern oriented software); specific to a single programming language; examples of a design pattern 
 implemented in a programming language, or smaller localized patterns that are seen in a particular programming language
+
+# What are anti-patterns?
+An anti-pattern is the opposite of a pattern; while it too describes a recurring solution to a commonly encountered problem, the solution is typically dysfunctional or ineffective, and has negative impacts on the “health” of the software (in terms of maintainability, extensibility, robustness, etc.). Anti-patterns serve a similar purpose to patterns; the description of the anti-pattern might illustrate a typical implementation of the anti-pattern, explain the context it generally occurs in, and show how the implementation results in problems for the software.
+
+A potential problem with the concept of a design anti-pattern is that it might discourage `critical thought` about the applicability of the pattern. A design that may be inappropriate in some contexts may be a sensible decision in others; a solution might be discarded after being recognised as an anti-pattern, even though it would be a good fit for the problem at hand.
 
 # Object Oriented Design Patterns
 The following (23) patterns describe creational, structural and behavioral patterns are fully described in the Gang of Four
@@ -244,9 +248,57 @@ which doesn't mean that it is an anti-pattern, it is the opinion of Martin Fowle
 
 In an anemic domain design, business logic is typically implemented in separate classes which transform the state of the 
 domain objects. Fowler calls such external classes [transaction scripts](http://martinfowler.com/eaaCatalog/transactionScript.html). 
-This pattern is a common approach in Java applications, possibly encouraged by technologies such as early versions of EJB's Entity Beans, 
-as well as in .NET applications following the Three-Layered Services Application architecture where such objects fall into the category of 
-"Business Entities" (although Business Entities can also contain behavior).
+
+This pattern is a common approach in Java applications, possibly encouraged by technologies such as early versions of EJB's Entity Beans, as well as in .NET applications following the Three-Layered Services Application architecture where such objects fall into the category of "Business Entities" (although Business Entities can also contain behavior).
+
+## Reasons why models are anemic
+* Near-total absence of business logic, as in an application which is primarily an assemblage of CRUD screens?
+* Service-oriented architecture in which the 'domain objects' are in fact data transfer objects?
+* Political or pragmatic considerations such as code ownership or forward/backward compatibility that excessively impede refactoring?
+* Applying procedural/relational design in an otherwise object-oriented language?
+
+In any case, if [I]((http://stackoverflow.com/questions/1156644/anemic-domain-models-vs-domain-model-in-a-simple-domain-driven-design)) were to pick a simple rule of thumb for the boundary between domain model logic and service logic, it would be that interacting with related objects is fine within the domain, while accessing the "outside world" (user interface, web services, etc) probably doesn't belong in the domain model.
+
+## Another point of view
+* Anemic domain model = database tables mapped to objects (only field values, no real behavior)
+* Rich domain model = a collection of objects that expose behavior
+
+If you want to create a simple CRUD application, maybe an anemic model with a classic MVC framework is enough. But if you want to implement some kind of logic, __anemic model means that you will not do object oriented programming__.
+
+__Note:__ Object behavior has nothing to do with persistence. A different layer (Gateways/DAO's, Data Mappers, Repositories etc.) is responsible for persisting domain objects. The key point is that the domain model implements the logic and operates on the state.
+
+## DTO’S, DDD & THE ANEMIC DOMAIN MODEL
+[I](http://elegantcode.com/2009/11/13/dtos-ddd-the-anemic-domain-model/) agree that an anemic domain model is bad, if there is no behavior then what’s the point right?
+
+__DTO:__ To me, a DTO moves data between ‘tiers’. They are the packaged data ready for transport. A JSON object is also a DTO.
+
+__Read model:__ This would be a different model than your real Domain model.  A Read model is very lightweight, `thin` and anemic.  Its purpose is to serve aggregated data to a specific screen or message. A DTO, to me, can be a read model, as too could be a View Model.
+
+__The domain model:__ rich and full of behavior. This model is most valuable when performing complex business rules during the saving and updating of data within a given transaction. It can also be used to read data too.
+
+Splitting the models allows the reads & writes to fluctuate independently, so which leads to higher maintainability. These models can also run on different tiers/nodes to increase scalability (read/cache tier, write tier), which are all choices.
+
+At some point, whether off a view or an inbound DTO, there will be mapping back into the domain model. This ‘friction’ or ‘impedance’ is pretty easy to manage using an assembler/translator, or a tool like AutoMapper.
+
+Greg Young & Udi Dahan take this concept further and apply a programming principle called [Command-Query Responsibility Separation/Seggregation](http://martinfowler.com/bliki/CQRS.html) with distributed programming and SOA.
+
+## The Anaemic Domain Model is no Anti-Pattern
+[I](https://blog.inf.ed.ac.uk/sapm/2014/02/04/the-anaemic-domain-model-is-no-anti-pattern-its-a-solid-design/) contend that such an anti-pattern is the `Anaemic Domain Model (ADM)`. The ADM is considered by these authors __as a failure to model a solution in an Object-Oriented manner__, instead relying on a procedural design to express business logic (which is a perfect definition of the ADM). This approach is contrasted with the Rich Domain Model (RDM), in which classes representing domain entities encapsulate all business logic and data. While the ADM may certainly be a poor design choice in some systems, it is not obvious that this is the case for all systems. 
+
+In some scenarios, the ADM appears be an reasonable choice of design, in terms of adherence to the [SOLID principles of Object-Oriented design](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design). The SOLID principles are guidelines which seek to balance implementation simplicity, scalability, and robustness. Specifically, by contrasting an ADM design with an RDM design for a hypothetical problem.
+
+I will attempt to show that ADM is a better fit for the SOLID principles than the RDM solution.
+
+An ADM consists of a set of  behaviour-free classes containing business data required to model the domain. These classes typically contain little or no business logic (validations, calculations, business rules etc..), instead, business logic is implemented by a domain service/logic layer. The domain service/logic layer consists of a set of types and functions which process the domain models as dictated by business rules. The argument against this approach is that the data and methods are divorced, violating a fundamental principle of Object-Oriented design by removing the capability of the domain model to enforce its own invariants. 
+
+In contrast, while an RDM consists of the same set of types containing necessary business data, the domain logic is also entirely resident on these domain entities, expressed as methods. The RDM then aligns well with the related concepts of encapsulation and information hiding; as Michael L. Scott states, `Encapsulation mechanisms enable the programmer to group data and the subroutines that operate on them together in one place, and to hide irrelevant details from the users of an abstraction`.
+
+In an RDM, the domain service/logic layer is either extremely thin or non-existent, and all domain rules are implemented via domain models. The contention is that domain entities in a RDM are then entirely capable of enforcing their invariants, and therefore the system is sound from an Object-Oriented design perspective.
+
+However, the capability of a domain entity to enforce local data constraints is only a single property in a set of desirable qualities in a system; while the ADM sacrifices this ability at the granularity of the individual domain entities, it does so in exchange for greater potential `flexibility` and `maintainability` of the overall implementation by allowing the domain logic to be implemented in dedicated classes (and exposed via interfaces).
+
+### My personal opinion
+Distributing logic all over the place, does not make for a good maintainable product. However, this is very implementation specific. Using Akka with Persistence, the persistence responsibility is delegated to the Akka runtime and therefor transparant to the implementation. The Actor handles messages, which makes for better testability, and the best encapsulation / loose coupling I have ever seen in a runtime. Handling these messages with event handlers can still make for good testable software by modulizing code eg. using facade or services. Akka makes a RDM viable and can be used anywhere.
 
 ## Benefits
 * Clear separation between logic and data; (Procedural programming). Each procedure operates on the data.
