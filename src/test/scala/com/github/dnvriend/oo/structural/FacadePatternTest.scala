@@ -21,6 +21,9 @@ import com.github.dnvriend.TestSpec
 class FacadePatternTest extends TestSpec {
 
   /**
+    * ==TL;DR==
+    * ''Provide a unified interface to a set of interfaces in a subsystem''
+    *
     * ==Overview==
     * This pattern allows a (simplifying) object to unify a (potentially more complex) interface to a set of objects.
     * The Façade can often be viewed as an interface to a subsystem. It has the effect of simplifying the interface
@@ -28,7 +31,7 @@ class FacadePatternTest extends TestSpec {
     * The Facade object then deals with the interactions with multiple subsystem objects.
     *
     * ==Intent==
-    * Provide a unified interface to a set of interfaces in a `subsystem`.
+    * Provide a unified interface to a set of interfaces in a subsystem`.
     * Facade defines a higher-level interface that makes the subsystem easier to use.
     *
     * ==Description==

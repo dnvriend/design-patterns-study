@@ -19,6 +19,24 @@ package com.github.dnvriend.oo.structural
 import com.github.dnvriend.TestSpec
 
 class AdapterPatternTest extends TestSpec {
+
+  /**
+   * ==TL;DR==
+   * ''Convert the interface of a class into another interface clients expect.''
+   *
+   * ==Overview==
+   * Convert the interface of a class into another interface clients expect. Adapter lets classes work together that
+   * could not otherwise because of incompatible interfaces.
+   *
+   * ==Intent==
+   *
+   * ==Description==
+   *
+   * ==Componentization==
+   *
+   * ==Scala==
+   */
+  trait Adapter
   "" should "" in {
 
   }
