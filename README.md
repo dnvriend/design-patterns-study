@@ -282,10 +282,13 @@ At some point, whether off a view or an inbound DTO, there will be mapping back 
 
 Greg Young & Udi Dahan take this concept further and apply a programming principle called [Command-Query Responsibility Separation/Seggregation](http://martinfowler.com/bliki/CQRS.html) with distributed programming and SOA.
 
-## The Anaemic Domain Model is no Anti-Pattern
+## The Anaemic Domain Model (ADM) is no Anti-Pattern
 [I](https://blog.inf.ed.ac.uk/sapm/2014/02/04/the-anaemic-domain-model-is-no-anti-pattern-its-a-solid-design/) contend that such an anti-pattern is the `Anaemic Domain Model (ADM)`. The ADM is considered by these authors __as a failure to model a solution in an Object-Oriented manner__, instead relying on a procedural design to express business logic (which is a perfect definition of the ADM). This approach is contrasted with the Rich Domain Model (RDM), in which classes representing domain entities encapsulate all business logic and data. While the ADM may certainly be a poor design choice in some systems, it is not obvious that this is the case for all systems. 
 
-In some scenarios, the ADM appears be an reasonable choice of design, in terms of adherence to the [SOLID principles of Object-Oriented design](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design). The SOLID principles are guidelines which seek to balance implementation simplicity, scalability, and robustness. Specifically, by contrasting an ADM design with an RDM design for a hypothetical problem.
+In some scenarios, the ADM appears be an reasonable choice of design, in terms of adherence to the 
+[SOLID principles of Object-Oriented design](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design). 
+The SOLID principles are guidelines which seek to balance implementation simplicity, scalability, and robustness. 
+Specifically, by contrasting an ADM design with an RDM design for a hypothetical problem.
 
 I will attempt to show that ADM is a better fit for the SOLID principles than the RDM solution.
 
@@ -298,7 +301,11 @@ In an RDM, the domain service/logic layer is either extremely thin or non-existe
 However, the capability of a domain entity to enforce local data constraints is only a single property in a set of desirable qualities in a system; while the ADM sacrifices this ability at the granularity of the individual domain entities, it does so in exchange for greater potential `flexibility` and `maintainability` of the overall implementation by allowing the domain logic to be implemented in dedicated classes (and exposed via interfaces).
 
 ### My personal opinion
-Distributing logic all over the place, does not make for a good maintainable product. However, this is very implementation specific. Using Akka with Persistence, the persistence responsibility is delegated to the Akka runtime and therefor transparant to the implementation. The Actor handles messages, which makes for better testability, and the best encapsulation / loose coupling I have ever seen in a runtime. Handling these messages with event handlers can still make for good testable software by modulizing code eg. using facade or services. Akka makes a RDM viable and can be used anywhere.
+Distributing logic all over the place, does not make for a good maintainable product. However, this is very implementation specific. 
+Using Akka with Persistence, the persistence responsibility is delegated to the Akka runtime and therefor transparant to the implementation. 
+The Actor handles messages, which makes for better testability, and the best encapsulation / loose coupling I have ever seen in a runtime. 
+Handling these messages with event handlers can still make for good testable software by modulizing code eg. using facade or services. 
+Akka makes a Rich Data Model viable and can be used anywhere.
 
 ## Benefits
 * Clear separation between logic and data; (Procedural programming). Each procedure operates on the data.
@@ -316,6 +323,48 @@ objects cannot guarantee their correctness at any moment, because their validati
 * Needs a service layer when sharing domain logic across differing consumers of an object model (clients of the domain, local
 or remote, communicate with the domain by means of a __service__)
 *  Makes a model less expressive.
+
+# SOLID Principles of Object Oriented Design
+The first five principles are principles of class design. They are:
+- __SRP:__ [Single Reponsibility Principle](https://drive.google.com/file/d/0ByOwmqah_nuGNHEtcU5OekdDMkk/view): “A class should have one, and only one, reason to change”. => THERE SHOULD NEVER BE MORE THAN ONE REASON FOR A CLASS TO CHANGE.
+- __OCP:__ Open-Closed Principle:  “You should be able to extend a class’s behavior, without modifying it” => SOFTWARE ENTITIES (CLASSES, MODULES, FUNCTIONS, ETC.) SHOULD BE OPEN FOR EXTENSION BUT CLOSED FOR MODIFICATION. 
+- __LSP:__ Liskov Substitution Principle: “Derived classes must be substitutable for their base classes.” => FUNCTIONS THAT USE ... REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
+- __ISP:__  Interface Segregation Principle: “Make fine grained interfaces that are client specific.” => CLIENTS SHOULD NOT BE FORCED TO DEPEND UPON INTERFACES THAT THEY DO NOT USE
+- __DIP:__ Dependency Inversion Principle: “Depend on abstrations, not on concretions.” => A. HIGH LEVEL MODULES SHOULD NOT DEPEND UPON LOW LEVEL MODULES. BOTH SHOULD DEPEND UPON ABSTRACTIONS B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTRACTIONS.
+
+The next six principles are about packages. In this context a package is a binary deliverable like a .jar file, or a dll as 
+opposed to a namespace like a java package or a C++ namespace.
+
+The first three package principles are about package cohesion, they tell us what to put inside packages:
+
+- __REP:__ The Release Reuse Equivalency Principle: The granule of reuse is the granule of release.
+- __CCP:__ The Common Closure Principle: Classes that change together are packaged together.
+- __CRP:__ The Common Reuse Principle: Classes that are used together are packaged together.
+
+The last three principles are about the couplings between packages, and talk about metrics that evaluate the 
+package structure of a system.
+
+- __ADP:__ The Acyclic Dependencies Principle: The dependency graph of packages must have no cycles.
+- __SDP:__ The Stable Dependencies Principle: Depend in the direction of stability.
+- __SAP:__ The Stable Abstractions Principle: Abstractness increases with stability.
+
+## Manage Dependency
+[Dependency Management](http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod) is an issue that most of us have faced. 
+Whenever we bring up on our screens a nasty batch of tangled legacy code, we are experiencing the results of poor dependency management. 
+Poor dependency managment leads to code that is hard to change, fragile, and non-reusable. Indeed, I talk about several different design 
+smells in the PPP book, all relating to dependency management. On the other hand, when dependencies are well managed, the code remains 
+flexible, robust, and reusable. So dependency management, and therefore these principles, are at the foudation of the -ilities that 
+software developers desire.
+
+Solid principles:
+- Help manage dependency,
+- Improved maintainability, flexibility, robustness, and reusability.
+
+Abstraction is important
+  [SOLID principles of Object-Oriented design](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design). 
+  The SOLID principles are guidelines which seek to balance implementation simplicity, scalability, and robustness. 
+  Specifically, by contrasting an ADM design with an RDM design for a hypothetical problem.
+
 
 ## Transaction script pattern
 Organizes business logic by procedures where each procedure handles a single request from the presentation.
@@ -337,6 +386,7 @@ pattern is OK for many simple business applications, and avoids the need for a c
 
 # Links
 * [Design Pattern in Simple Examples](http://www.go4expert.com/articles/design-pattern-simple-examples-t5127)
+* [Scala Best Practices](https://github.com/alexandru/scala-best-practices)
 
 # Books
 * Pattern oriented software architecture
