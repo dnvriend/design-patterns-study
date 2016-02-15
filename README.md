@@ -25,6 +25,13 @@ An anti-pattern is the opposite of a pattern; while it too describes a recurring
 
 A potential problem with the concept of a design anti-pattern is that it might discourage `critical thought` about the applicability of the pattern. A design that may be inappropriate in some contexts may be a sensible decision in others; a solution might be discarded after being recognised as an anti-pattern, even though it would be a good fit for the problem at hand.
 
+# Why do we need patterns?
+- We need to know design patterns to find solutions for frequently occurring problems. And we want to reuse these 
+solutions whenever we face a similar situation in the future.
+- These are one kind of template to address solutions in many different situations.
+- In other words, these are the descriptions of how different objects and their respective classes 
+solve a design problem in a specific context.
+
 # Object Oriented Design Patterns
 The following (23) patterns describe creational, structural and behavioral patterns are fully described in the Gang of Four
 book 'Design Patterns: Elements of Reusable Object-Oriented Software'
@@ -45,16 +52,18 @@ the creational logic in one place, changes to that logic will propagate to where
 Structural patterns concern class and object composition; hence structural. They use inheritance to compose interfaces 
 and define ways to compose objects to obtain new functionality.
 
-* __Adapter pattern:__ allows classes with incompatible interfaces to work together by wrapping its own interface around that of an already existing class.
-* Bridge pattern: decouples an abstraction from its implementation so that the two can vary independently.
-* __Composite pattern:__ composes zero-or-more similar objects so that they can be manipulated as one object.
-* __Decorator pattern:__ dynamically adds/overrides behaviour in an existing method of an object.
-* __Facade pattern:__ provides a simplified interface to a large body of code.
-* Flyweight pattern: reduces the cost of creating and manipulating a large number of similar objects.
 * __Proxy pattern:__  provides a placeholder for another object to control access, reduce cost, and reduce complexity.
+* Flyweight pattern: reduces the cost of creating and manipulating a large number of similar objects.
+* Bridge pattern: decouples an abstraction from its implementation so that the two can vary independently.
+* __Facade pattern:__ provides a simplified interface to a large body of code.
+* __Decorator pattern:__ dynamically adds/overrides behaviour in an existing method of an object.
+* __Adapter pattern:__ allows classes with incompatible interfaces to work together by wrapping its own interface around that of an already existing class.
+* __Composite pattern:__ composes zero-or-more similar objects so that they can be manipulated as one object.
 
 ## Behavioral (11)
-Behavioral patterns are specifically concerned with communication between objects, hence behavioral.
+Behavioral patterns are specifically concerned with communication between objects, hence behavioral. Here our concentration is 
+on algorithms and the assignment of the critical responsibilities among the objects. We also need to focus on the communication 
+between them. We need to take a closer look at the way those objects are interconnected. 
 
 * Chain of responsibility pattern: delegates commands to a chain of processing objects.
 * __Command pattern:__ creates objects which encapsulate actions and parameters.
@@ -387,6 +396,9 @@ pattern is OK for many simple business applications, and avoids the need for a c
 # Links
 * [Design Pattern in Simple Examples](http://www.go4expert.com/articles/design-pattern-simple-examples-t5127)
 * [Scala Best Practices](https://github.com/alexandru/scala-best-practices)
+
+# TypeTags
+* [StackOverflow - Scala: What is a TypeTag and how do I use it?](http://stackoverflow.com/questions/12218641/scala-what-is-a-typetag-and-how-do-i-use-it)
 
 # Books
 * Pattern oriented software architecture
