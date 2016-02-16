@@ -334,6 +334,9 @@ or remote, communicate with the domain by means of a __service__)
 *  Makes a model less expressive.
 
 # SOLID Principles of Object Oriented Design
+[SOLID principles of Object-Oriented design](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design). The SOLID principles are 
+guidelines which seek to balance implementation simplicity, scalability, and robustness.
+
 The first five principles are principles of class design. They are:
 - __SRP:__ [Single Reponsibility Principle](https://drive.google.com/file/d/0ByOwmqah_nuGNHEtcU5OekdDMkk/view): “A class should have one, and only one, reason to change”. => THERE SHOULD NEVER BE MORE THAN ONE REASON FOR A CLASS TO CHANGE.
 - __OCP:__ Open-Closed Principle:  “You should be able to extend a class’s behavior, without modifying it” => SOFTWARE ENTITIES (CLASSES, MODULES, FUNCTIONS, ETC.) SHOULD BE OPEN FOR EXTENSION BUT CLOSED FOR MODIFICATION. 
@@ -369,11 +372,11 @@ Solid principles:
 - Help manage dependency,
 - Improved maintainability, flexibility, robustness, and reusability.
 
-Abstraction is important
-  [SOLID principles of Object-Oriented design](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design). 
-  The SOLID principles are guidelines which seek to balance implementation simplicity, scalability, and robustness. 
-  Specifically, by contrasting an ADM design with an RDM design for a hypothetical problem.
-
+## SOLID Resources
+- [Bob Martin - SOLID Principles of Object Oriented and Agile Design](https://www.youtube.com/watch?v=TMuno5RZNeE)
+- [Robert C Martin - The Single Responsibility Principle](https://www.youtube.com/watch?v=Gt0M_OHKhQE)
+- [Robert C. Martin ("Uncle Bob"): Agility and Architecture](https://www.youtube.com/watch?v=0oGpWmS0aYQ)
+- [Applying S.O.L.I.D. Principles in Microsoft .NET/C#](https://www.youtube.com/watch?v=Whhi1C2PpaA)
 
 ## Transaction script pattern
 Organizes business logic by procedures where each procedure handles a single request from the presentation.
@@ -391,14 +394,26 @@ pattern is OK for many simple business applications, and avoids the need for a c
 # Reactive Design Patterns
 
 ## Video's
-* [Stuart Sierra - Functional Design Patterns](https://www.youtube.com/watch?v=etr08mExAI0)
+* [Youtube - Stuart Sierra - Functional Design Patterns](https://www.youtube.com/watch?v=etr08mExAI0)
 
 # Links
 * [Design Pattern in Simple Examples](http://www.go4expert.com/articles/design-pattern-simple-examples-t5127)
 * [Scala Best Practices](https://github.com/alexandru/scala-best-practices)
 
 # TypeTags
+A [TypeTag](http://www.scala-lang.org/api/2.11.7/scala-reflect/#scala.reflect.api.TypeTags) encapsulates the runtime 
+type representation of some type `T`. The prime use case of `TypeTag`s is to give access to erased types.
+
+There are three different [TypeTags](http://docs.scala-lang.org/overviews/reflection/typetags-manifests.html):
+
+- scala.reflect.api.TypeTags#TypeTag: A full type descriptor of a Scala type. For example, a TypeTag[List[String]] contains all type information, in this case, of type scala.List[String].
+- scala.reflect.ClassTag: A partial type descriptor of a Scala type. For example, a ClassTag[List[String]] contains only the erased class type information, in this case, of type scala.collection.immutable.List. ClassTags provide access only to the runtime class of a type. Analogous to scala.reflect.ClassManifest
 * [StackOverflow - Scala: What is a TypeTag and how do I use it?](http://stackoverflow.com/questions/12218641/scala-what-is-a-typetag-and-how-do-i-use-it)
+
+# Functional Programming
+- [Youtube - Robert C Martin - Functional Programming; What? Why? When?](https://www.youtube.com/watch?v=7Zlp9rKHGD4)
+- [Youtube - Robert C Martin - Clean Architecture and Design](https://www.youtube.com/watch?v=Nsjsiz2A9mg)
+- [Youtube - Robert C. Martin - The Land that Scrum Forgot](https://www.youtube.com/watch?v=hG4LH6P8Syk)
 
 # Books
 * Pattern oriented software architecture

@@ -25,6 +25,13 @@ class TypeTagTest extends TestSpec {
   class Foo
   class Bar extends Foo
 
+  def determineTypeImplicit[A](xs: List[A])(implicit ev: TypeTag[A]) = typeOf[A] match {
+    case t if t =:= typeOf[String] ⇒ "strings" //  =:= (type equality)
+    case t if t =:= typeOf[Int]    ⇒ "ints"
+    case t if t <:< typeOf[Bar] => "bars" //  <:< (subtype relation)
+    case t if t <:< typeOf[Foo] => "foos"
+  }
+
   def determineType[A: TypeTag](xs: List[A]) = typeOf[A] match {
     case t if t =:= typeOf[String] ⇒ "strings" //  =:= (type equality)
     case t if t =:= typeOf[Int]    ⇒ "ints"
@@ -61,5 +68,21 @@ class TypeTagTest extends TestSpec {
 
   it should "match foo" in {
     determineType(List(new Foo)) shouldBe "foos"
+  }
+
+  "determineTypeImplicit" should "match ints" in {
+    determineTypeImplicit(List(1, 2)) shouldBe "ints"
+  }
+
+  it should "match strings" in {
+    determineTypeImplicit(List("a", "b")) shouldBe "strings"
+  }
+
+  it should "match bars" in {
+    determineTypeImplicit(List(new Bar)) shouldBe "bars"
+  }
+
+  it should "match foo" in {
+    determineTypeImplicit(List(new Foo)) shouldBe "foos"
   }
 }
