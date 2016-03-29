@@ -416,4 +416,26 @@ There are three different [TypeTags](http://docs.scala-lang.org/overviews/reflec
 - [Youtube - Robert C. Martin - The Land that Scrum Forgot](https://www.youtube.com/watch?v=hG4LH6P8Syk)
 
 # Books
-* Pattern oriented software architecture
+* [Software Architecture For Developers](https://leanpub.com/software-architecture-for-developers) - [Simon Brown](https://twitter.com/simonbrown) (2016)
+
+# My notes on Software Architecture for Developers
+The book [Software Architecture for Developers](https://leanpub.com/software-architecture-for-developers) is great! 
+It demystifies Software Architecture by continuously asking questions and where appropriate putting definitions in 
+place when no clear answer could be found based on common sense. Simon Brown did a great job clearing the fog of war that exists in 
+software development. It is a must read for everyone creating software. Now let's give [Simon Brown](https://twitter.com/simonbrown) a lot of money, 
+buy the book and go read!
+
+Below are my notes and excerpt from the book:
+ 
+## What is software architecture?
+
+ * The software architect is a role, preferably shared and fulfilled by the whole development team, if possible,
+ * When the architect's role is fulfilled by a single person, the approach should be `coding`, `coaching` and `collaborative design`,
+ * Software architecture is about `structure` and `vision`,
+ * Software architecture is about `the high-level structure` of a `software system` and how one gets to an `understanding` of it,
+ * Software architecture is about `the significant decisions` that `influence the shape` of a software system,
+ * Software architecture is about `the things that are hard or expensive to change`,
+ * When a team does not consider software architecture, bad things tend to happen; one could end up with a poorly structured, internal inconsistent software system that are hard to understand, hard to maintain and potentially don't satisfy one or more of the important non-functional requirements such as performance, scalability or security.
+ * One should explicitly think about software architecture, it provides a way to introduce technical leadership and stack the odds of a successful delivery in your favor,  
+ * Software architecture is `not` about `big design up front`, but thinking  
+
