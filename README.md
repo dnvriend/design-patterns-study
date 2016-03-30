@@ -468,5 +468,51 @@ Below are my notes and excerpt from the book:
  * Software architecture is about `the things that are hard or expensive to change`,
  * When a team does not consider software architecture, bad things tend to happen; one could end up with a poorly structured, internal inconsistent software system that are hard to understand, hard to maintain and potentially don't satisfy one or more of the important non-functional requirements such as performance, scalability or security.
  * One should explicitly think about software architecture, it provides a way to introduce technical leadership and stack the odds of a successful delivery in your favor,  
- * Software architecture is `not` about `big design up front`, but thinking  
+ * Software architecture is `not` about `big design up front`,  
+
+# My notes on The Art of Visualizing Software Architecture
+The book [The Art of Visualizing Software Architecture](https://leanpub.com/visualising-software-architecture) teaches a method how to visually
+communicate the software architecture which is the static structure of a software system. Below are my notes and excerpt from the book:
+
+## Shared Vocabulary
+First of all, it is very important to share the vocabulary that you will be using in the diagrams. We will be using the vocabulary that
+consists of `containers`, `components` and `classes/code`. With this shared vocabulary we can draw diagrams at varying levels of abstraction.
+
+ * A software system is a hierarchy of simple building blocks,
+ * A software system is made up of one or more `containers` each of which contains one or more `components` which in turn are implemented by one or more `classes`,
+ * A `container` can be a web applications, mobile apps, standalone applications, databases, file systems, Microservice, shell script, etc,
+ * A `component` is a grouping or `related functionality` encapsulated behind a well defined `interface`,
+ * A `component` will be implemented by one or more `classes` so a component contains one or more classes,
+ * In OO: a component is made up of classes and interfaces,
+ * In FP: A component could be a module which is a logical grouping of related functions, types, etc,
+ * In JS: A component could be a JavaScript module, which is made up of a number of objects and functions,
+ * In a RDBMS: A component could be a logical grouping of functionality; based upon a number of tables, views, stored procedures, functions, triggers, etc,
+ 
+## The Context Diagram - People and Software Systems
+The `context diagram` is useful to get the big picture. It does not show much detail but it does help to set the scene and
+is a starting point for other diagrams. The diagram should show how a software system fits in to the overall environment. 
+All software systems `should have` a context diagram. The context diagram is usually the starting point for diagramming and 
+documenting a software system. 
+
+The context diagram is often drawn during a requirements gathering workshop, to ensure that everybody understands the scope of 
+what will be build. The focus should be on `people` (actors, roles, personas, etc) and `software systems` rather than technologies, 
+protocols and other low-level details. It is the diagram that you would show non-technical people. 
+The diagram should show `people` and `software systems`.
+
+The context diagram helps to answer the questions:
+ 
+ - What is the software system that we are building?
+ - Who is using it?
+ - How does it fit in with the existing environment?
+ 
+The context diagram shows the following:
+
+ * It makes the context and scope explicit, so that there are no assumptions,
+ * It shows what is being added to an existing environment,
+ * It is a high-level diagram that technical and non-technical people can use as a starting point for discussions,
+ * It provides a starting point for identifying who you potentially need to go and talk to as far as understanding inter-system interfaces is concerned.
+ 
+## The Container Diagram - High Level Technology Choices
+
+
 
