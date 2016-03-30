@@ -488,6 +488,8 @@ consists of `containers`, `components` and `classes/code`. With this shared voca
  * In JS: A component could be a JavaScript module, which is made up of a number of objects and functions,
  * In a RDBMS: A component could be a logical grouping of functionality; based upon a number of tables, views, stored procedures, functions, triggers, etc,
  
+![Shared Vocabulary](https://leanpub.com/site_images/visualising-software-architecture/shared-vocabulary-1.png) 
+ 
 ## The Context Diagram - People and Software Systems
 The `context diagram` is useful to get the big picture. It does not show much detail but it does help to set the scene and
 is a starting point for other diagrams. The diagram should show how a software system fits in to the overall environment. 
