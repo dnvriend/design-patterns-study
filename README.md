@@ -514,6 +514,8 @@ The context diagram shows the following:
  * It is a high-level diagram that technical and non-technical people can use as a starting point for discussions,
  * It provides a starting point for identifying who you potentially need to go and talk to as far as understanding inter-system interfaces is concerned.
  
+![Context Diagram](https://leanpub.com/site_images/visualising-software-architecture/context-2.png)
+ 
 ## The Container Diagram - High Level Technology Choices
 
 
