@@ -42,14 +42,40 @@ code instant object directly and therefor having all the logic about how to crea
 logic surrounding objects), the creational pattern will do that for you. This has a second benefit, in that having all
 the creational logic in one place, changes to that logic will propagate to where the new object is needed. 
 
-* Abstract factory pattern: groups object factories that have a common theme.
-* Builder pattern: constructs complex objects by separating construction and representation.
-* __Factory method pattern__: creates objects without specifying the exact class to create.
-* Prototype pattern: creates objects by cloning an existing object.
-* __Singleton pattern__: restricts object creation for a class to only one instance.
+Creational patterns provide guidance on the creation of objects. They help hide the details of the object instantiation 
+from the code that uses those objects. That is they make an application independent of how its objects are created, 
+composed and represented. This leads to high cohesion between the objects and their users, but low couple between the 
+users and the way the objects are created. For example, if I have a Java interface that is implemented by three different 
+classes, then using a Factory pattern I might instantiate one of the three classes depending on the current situation. 
+All the user of the object returned needs to know is what interface they all implement. The actual implementation may change 
+each time the factory is used, but this detail is hidden.
+
+There are 5 different patterns within the creational patterns category. They are `Factory Method`, `Abstract Factory`, 
+`Builder`, `Prototype` and `Singleton`. These patterns are presented below:
+
+* __Factory method pattern__: The `factory method pattern` provides a pattern that describes the use of a factory class (or method) 
+for constructing objects. The methods on the factory return objects that implement a given interface. The user of the factory only knows about the interface. 
+Thus different objects can be created depending on the current situation (as long as they implement the interface). creates objects without specifying the 
+exact class to create.
+* Abstract factory pattern: The `abstract factory pattern` describes a pattern for creating families of related or dependent objects.
+* Builder pattern: The `builder pattern` separates out the construction of a complex object from its use. Thus the client can specify what 
+type of object is required and what its content might be, but never need to know about how that object is constructed and initialised.
+* Prototype pattern: The `prototype pattern` allows a user object to create a customized object, based on a prototype of what is required. That is, 
+the pattern describes how a new object can be created based on a customisation of an existing object.
+* __Singleton pattern__: The `singleton pattern` describes a class that can only have one object constructed for it. That is, unlike other objects 
+it should not be possible to obtain more than one instance within the same virtual machine. Thus the Singleton pattern ensures that only one instance 
+of a class is created. All objects that use an instance of that class use the same instance. The motivation behind this pattern is that some classes, 
+typically those classes that involve the central management of a resource, should have exactly one instance. For example, a object that managements 
+the reuse of database connections (i.e. a connection pool) could be a singleton.
 
 ## Structural (7)
-Structural patterns concern class and object composition; hence structural. They use inheritance to compose interfaces 
+Structural patterns describe the `organization of objects`. That is how classes and objects are composed to form larger structures. 
+For example a large department store near where I live, appears form the outside to be a single entity with a very grand frontage. 
+However, behind this frontage is a completely new shop containing various independent stores. This means that as a customer I see 
+form the outside a single and quite grand whole. But form the inside there are multiple smaller shops/brands all working together. 
+This is the essence of the `Facade` pattern.
+
+Structural patterns concern class and object composition; hence structural. They use `inheritance` to `compose` interfaces 
 and define ways to compose objects to obtain new functionality.
 
 * __Proxy pattern:__  provides a placeholder for another object to control access, reduce cost, and reduce complexity.
@@ -61,9 +87,14 @@ and define ways to compose objects to obtain new functionality.
 * __Composite pattern:__ composes zero-or-more similar objects so that they can be manipulated as one object.
 
 ## Behavioral (11)
-Behavioral patterns are specifically concerned with communication between objects, hence behavioral. Here our concentration is 
+Behavioral patterns are specifically concerned with `communication` between objects, hence behavioral. Here our concentration is 
 on algorithms and the assignment of the critical responsibilities among the objects. We also need to focus on the communication 
 between them. We need to take a closer look at the way those objects are interconnected. 
+
+Behavioural patterns are concerned with organizing, managing and assigning responsibilities to objects `during execution`. 
+That is, the focus of the behavioral patterns are on the communication between objects during the execution of some task. 
+Typically, these patterns characterize complex control flows that are difficult to follow at runtime. They therefore help to 
+shift the emphasis away from the low level flow of control to the higher level object interactions.
 
 * Chain of responsibility pattern: delegates commands to a chain of processing objects.
 * __Command pattern:__ creates objects which encapsulate actions and parameters.
