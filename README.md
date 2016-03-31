@@ -372,14 +372,14 @@ or remote, communicate with the domain by means of a __service__)
 
 # SOLID Principles of Object Oriented Design
 [SOLID principles of Object-Oriented design](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design). The SOLID principles are 
-guidelines which seek to balance implementation simplicity, scalability, and robustness.
+guidelines which seek to balance implementation simplicity, scalability, and robustness. Mark Nijhof has written a great book about the SOLID principles, and its available for free so go and get it [SOLID - Software Development is not a Jenga Game - Mark Nijhof](https://leanpub.com/solid).
 
 The first five principles are principles of class design. They are:
-- __SRP:__ [Single Reponsibility Principle](https://drive.google.com/file/d/0ByOwmqah_nuGNHEtcU5OekdDMkk/view): “A class should have one, and only one, reason to change”. => THERE SHOULD NEVER BE MORE THAN ONE REASON FOR A CLASS TO CHANGE.
-- __OCP:__ Open-Closed Principle:  “You should be able to extend a class’s behavior, without modifying it” => SOFTWARE ENTITIES (CLASSES, MODULES, FUNCTIONS, ETC.) SHOULD BE OPEN FOR EXTENSION BUT CLOSED FOR MODIFICATION. 
-- __LSP:__ Liskov Substitution Principle: “Derived classes must be substitutable for their base classes.” => FUNCTIONS THAT USE ... REFERENCES TO BASE CLASSES MUST BE ABLE TO USE OBJECTS OF DERIVED CLASSES WITHOUT KNOWING IT.
-- __ISP:__  Interface Segregation Principle: “Make fine grained interfaces that are client specific.” => CLIENTS SHOULD NOT BE FORCED TO DEPEND UPON INTERFACES THAT THEY DO NOT USE
-- __DIP:__ Dependency Inversion Principle: “Depend on abstrations, not on concretions.” => A. HIGH LEVEL MODULES SHOULD NOT DEPEND UPON LOW LEVEL MODULES. BOTH SHOULD DEPEND UPON ABSTRACTIONS B. ABSTRACTIONS SHOULD NOT DEPEND UPON DETAILS. DETAILS SHOULD DEPEND UPON ABSTRACTIONS.
+- [Single Reponsibility Principle](https://leanpub.com/solid/read#leanpub-auto-single-responsibility-principle---srp): “A class should have one, and only one, reason to change”. => There should never be more than one reason for a class to change.
+- [Open-Closed Principle](https://leanpub.com/solid/read#leanpub-auto-open-closed-principle---ocp):  “You should be able to extend a class’s behavior, without modifying it” => Software entities, (classes, modules, functions etc), should be open for extension for closed for modification.
+- [Liskov Substitution Principle](https://leanpub.com/solid/read#leanpub-auto-liskov-substitution-principle---lsp): “Derived classes must be substitutable for their base classes.” => Functions that use object references to base classes must be able to use objects of derived classes without knowing it.
+- [Interface Segregation Principle](https://leanpub.com/solid/read#leanpub-auto-interface-segregation-principle---isp): “Make fine grained interfaces that are client specific.” => Clients should not be forced to depend upon interfaces that they do not use.
+- [Dependency Inversion Principle](https://leanpub.com/solid/read#leanpub-auto-dependency-inversion-principle---dip): “Depend on abstrations, not on concretions.” => A high level module should not depend upon low level modules. Both should depend upon abstractions. Abstractions should not depend upon details. Details should depend upon abstractions.
 
 The next six principles are about packages. In this context a package is a binary deliverable like a .jar file, or a dll as 
 opposed to a namespace like a java package or a C++ namespace.
