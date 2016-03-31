@@ -139,6 +139,12 @@ shift the emphasis away from the low level flow of control to the higher level o
 * Customized Control Flow
 * Domain-Specific Language
 
+# Polymorphism
+
+* [Parameteric polymorphism](http://eed3si9n.com/learning-scalaz/polymorphism.html#Subtype+polymorphism), 
+* [Subtype polymorphism](http://eed3si9n.com/learning-scalaz/polymorphism.html#Ad-hoc+polymorphism),
+* [Ad-hoc polymorphism](http://eed3si9n.com/learning-scalaz/polymorphism.html#Ad-hoc+polymorphism) [Debasish Ghosh - Scala Implicits : Type Classes Here I Come](http://debasishg.blogspot.com/2010/06/scala-implicits-type-classes-here-i.html),
+
 # Registry
  A `registry` is a list of items with pointers for where to find the items, like the index on a database table or the 
 card catalog for a library. If you lose a `registry`, the items still exist; you just may need to reindex them. 
@@ -517,6 +523,17 @@ The context diagram shows the following:
 ![Context Diagram](https://leanpub.com/site_images/visualising-software-architecture/context-2.png)
  
 ## The Container Diagram - High Level Technology Choices
+The `container diagram` illustrates the high-level technology choices. It shows the high-level shape of the software architecture
+(the static structure) and how responsibilities are distributed across it. It shows the major technology choices and how the containers
+communicate with each other. It is a simple `technology-focused` diagram that is useful for `software developers` and `support/operations staff`.
+ 
+The container diagram helps answer the questions:
 
+ - What is the overal shape of the software system?
+ - What are the high-level technology decisions?
+ - How are responsibilities distributed across the system?
+ - How do containers communicate with each other?
+ - As a developer, where do I need to write code in order to implement features? 
 
+![Container Diagram](https://leanpub.com/site_images/visualising-software-architecture/containers-1.png)
 
