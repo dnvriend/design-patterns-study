@@ -11,6 +11,9 @@ Agile Delivery](http://www.disciplinedagiledelivery.com/).
 
 > Patterns always have two parts: the how and the when. Not just do you need to know how to implement them, you also have to know when to use them and when to leave them alone. <quote>Martin Fowler</quote>
 
+# Core design principles
+- [Core Design Principles for Software Developers by Venkat Subramaniam](https://www.youtube.com/watch?v=llGgO74uXMI)
+
 # What are Patterns?
 There are different categories of software patterns:
 * Architectural patterns: big broad things that can describe an entire computer system. They are programming language
