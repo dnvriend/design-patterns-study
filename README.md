@@ -828,3 +828,51 @@ The container diagram helps answer the questions:
 
 ![Container Diagram](https://leanpub.com/site_images/visualising-software-architecture/containers-1.png)
 
+## CAP theorem
+In theoretical computer science, the [CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem), also named Brewer's theorem
+after computer scientist Eric Brewer, states that it is impossible for a __distributed computer system__ to _simultaneously_ provide
+all three of the following guarantees:
+
+1: __Consistency:__	Every read receives the most recent write or an error
+2: __Availability:__ Every request receives a response, without guarantee that it contains the most recent version of the information
+3: __Partition tolerance:__	The system continues to operate despite an arbitrary number of messages being dropped by the network between nodes
+
+No distributed system is safe from network failures, thus network partitioning generally has to be tolerated. In the presence of a
+partition, one is then left with two options: consistency or availability.
+
+__Choosing consistency over availability:__
+When choosing consistency over availability, the system will return an error or a time out if particular information cannot be
+guaranteed to be up to date due to network partitioning.
+
+__Choosing availability over consistency:__
+When choosing availability over consistency, the system will always process the query and try to return the most recent available
+version of the information, even if it cannot guarantee it is up to date due to network partitioning.
+
+In the absence of network failure, that is, when the distributed system is running normally, both availability and consistency
+can be satisfied (in case of some database systems, a consistency level can be requested with a query).
+
+CAP is frequently misunderstood as if one had to choose to abandon one of the three guarantees at all times. In fact,
+the choice is really between consistency and availability for when a partition happens only; at all other times,
+no trade-off has to be made.
+
+Database systems designed with traditional [ACID](https://en.wikipedia.org/wiki/ACID) (Atomicity, Consistency, Isolation, Durability) guarantees in mind such as RDBMS
+choose consistency over availability, whereas systems designed around the [BASE](https://en.wikipedia.org/wiki/Eventual_consistency)
+philosophy (Eventual Consistency), common in the NoSQL movement for example, choose availability over consistency.
+
+The [PACELC](https://en.wikipedia.org/wiki/PACELC_theorem) theorem builds on CAP by stating that even in the absence of 
+partitioning, another trade-off between latency and consistency occurs.
+
+## PACELC theorem
+In theoretical computer science, the [PACELC](https://en.wikipedia.org/wiki/PACELC_theorem) theorem is an extension to the
+[CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem). It states that in case of network partitioning (P)
+in a distributed computer system, one has to choose between availability (A) and consistency (C) (as per the CAP theorem),
+but else (E), even when the system is running normally in the absence of partitions, one has to choose between latency (L)
+and consistency (C).
+
+PACELC builds on the CAP theorem. Both theorems describe how distributed databases have limitations and tradeoffs regarding
+consistency, availability, and partition tolerance. PACELC however goes further and states that a trade-off also exists,
+this time between latency and consistency, even in absence of partitions, thus providing a more complete portray of the
+potential consistency tradeoffs for distributed systems.
+
+A high availability requirement implies that the system must replicate data. As soon as a distributed system replicates data,
+a tradeoff between consistency and latency arises.
