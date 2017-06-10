@@ -743,7 +743,91 @@ There are three different [TypeTags](http://docs.scala-lang.org/overviews/reflec
 - [Youtube - Robert C Martin - Clean Architecture and Design](https://www.youtube.com/watch?v=Nsjsiz2A9mg)
 - [Youtube - Robert C. Martin - The Land that Scrum Forgot](https://www.youtube.com/watch?v=hG4LH6P8Syk)
 
+## Software Architecture
+The software architecture of a computing system is the set of structures needed to reason about the system, which comprise software elements, relations among them, and properties of both.
+
+Software architecture has emerged as an important subdiscipline of software engineering. Architecture is roughly the prudent partitioning of a whole into parts, with specific relations among the parts. This partitioning is what allows groups of people—often separated by organizational, geographical, and even time-zone boundaries—to work cooperatively and productively together to solve a much larger problem than any of them could solve individually. 
+
+Each group writes software that interacts with the other groups’ software through carefully crafted interfaces that reveal the minimal and most stable information necessary for interaction. From that interaction emerges the functionality and quality attributes—security, modifiability, performance, and so forth—that the system’s stakeholders demand. The larger and more complex the system, the more critical is this partitioning—and hence, architecture. The more demanding those quality attributes are, the more critical the architecture is. 
+
+A single system is almost inevitably partitioned simultaneously in a number of different ways. Each partitioning results in the creation of an architectural structure: different sets of parts and different relations among the parts. Each is the result of careful design, carried out to satisfy the driving quality attribute requirements and the most important business goals behind the system. 
+
+Many projects make the mistake of trying to impose a single partition in multiple component domains, such as equating threads with objects, which are equated with modules, which in turn are equated with files. Such an approach never succeeds fully, and adjustments eventually must be made, but the damage of the initial intent is often hard to repair. 
+
+This invariably leads to problems in development and occasionally in final products. Architecture is what makes the sets of parts work together as a coherent and successful whole. Architecture documentation help architects make the right decisions; it tells developers how to carry them out; and it records those decisions to give a system’s future caretakers insight into the architect’s solution.
+
+For nearly all systems, quality attributes such as 'performance', 'reliability', 'security', and 'modifiability' are every bit as important as making sure that the software computes the correct answer. A software system’s ability to produce correct results isn’t helpful if it takes too long doing it, or the system doesn’t stay up long enough to deliver it, or the system reveals the results to your competition or your enemy. Architecture is where these concerns are addressed. For example: 
+
+- If you require high __performance__, you need to:
+  - Exploit potential parallelism by decomposing the work into cooperating or synchronizing processes. 
+  - Manage the interprocess and network communication volume and data access frequencies. 
+  - Be able to estimate expected latencies and throughputs. 
+  - Identify potential performance bottlenecks. 
+- If your system needs high __accuracy__, you must pay attention to how the data elements are defined and used and how their values flow throughout the system.
+- If __security__ is important, you need to:
+  - Legislate usage relationships and communication restrictions among the parts.
+  - Identify parts of the system where an unauthorized intrusion will do the most damage.
+  - Possibly introduce special elements that have earned a high degree of trust.
+- If you need to support __modifiability__ and portability, you must carefully separate concerns among the parts of the system, so that when a change affects one element, that change does not ripple across the system.
+- If you want to __deploy the system incrementally__, by releasing successively larger subsets, you have to keep the dependency relationships among the pieces untangled, to avoid the 'nothing works until everything works' syndrome. 
+
+The solutions to these concerns are purely architectural in nature. It is up to architects to __find those solutions__ and __communicate them__ effectively to those who will carry them out. Architecture documentation has three obligations related to quality attributes: 
+
+1. First, it should indicate which quality attribute requirements drove the design. 
+2. Second, it should capture the solutions chosen to satisfy the quality attribute requirements. 
+3. Finally, it should capture a convincing argument why the solutions provide the necessary quality attributes. The goal is to capture enough information so that the architecture can be analyzed to see if, in fact, the system(s) derived from it will possess the necessary quality attributes.
+
+## What is Software Architecture?
+If we are to agree on what it means to document a software architecture, we should establish a common basis for what it is we’re documenting. No universal definition of software architecture exists. The Software Engineering Institute’s Web site collects definitions from the literature and from practitioners around the world; so far, more than 150 definitions have been collected. It seems that new fields try to nail down standard definitions or their key terms as soon as they can. As the field matures, basic concepts become more important than ironclad definitions, and this urge seems to fade. 
+
+When object-oriented development was in its infancy, you could bring any OO meeting to a screeching halt by putting on your best innocent face and asking, “What exactly is an object?” This largely ended when people realized that the scatter plot of definitions had an apparent (if unarticulated) centroid, from which very useful progress could be made. Sometimes “close enough” is, well, close enough.
+
+This seems to be the case with software architecture. Looking at the major attempts to nail down its definition gives us a good glimpse at our own centroid. That centroid takes a largely structural perspective on software architecture: 
+
+_Software architecture is composed of elements, connections or relations among them, and, usually, some other aspect or aspects, such as (take your pick) configuration; constraints or semantics; analyses or properties; or rationale, requirements, or stakeholders’ needs._
+
+These perspectives do not preclude one another, nor do they represent a fundamental conflict about what software architecture is. Instead, they represent a spectrum in the software architecture community about the emphasis that should be placed on architecture: its constituent parts, the whole entity, the way it behaves once built, or the building of it. Taken together, they form a consensus view of software architecture. 
+
+So we end up with the following definition:
+
+_The software architecture of a program or computing system is the structure or structures of the system, which comprise software elements, the externally visible properties of those elements, and the relations among them. By 'externally visible properties,'' we are referring to those assumptions other components can make of a component, such as its provided services, performance characteristics, fault handling, shared resource usage, and so on. 
+
+The previous definition of software architecture fits the goal of knowing what to document about an architecture and thus coming up with a Software Architecture Document (SAD) that is usable by multiple stakeholders. The definition emphasizes the plurality of structures present in every software system. These structures, carefully chosen and designed by the architect, are the key to achieving and reasoning about the system’s design goals. And those structures are the key to understanding the architecture. Therefore, they are the focus of the approach to documenting a software architecture. __Structures consist of elements, relations among the elements, and the important properties of both. So documenting a structure entails documenting those things__.
+
+## What’s the Difference Between Architecture and Design? 
+The question of how architecture is different from design has nipped at the heels of the software development community for years. It is a question I often hear when teaching an introductory course on architecture. It matters here because the question deals with what we should put in an architecture document and what we should put somewhere else. 
+
+The first thing we can say is that __clearly architecture is design__, _but not all design is architecture_. That is, many design decisions are left unbound by the architecture and are happily left to the discretion and good judgment of downstream designers and even implementers. The architecture establishes constraints on downstream activities, and those activities must produce artifacts—finer-grained designs and code—that comply with the architecture. 
+
+It’s tempting to stop there, but if you’re paying attention you’ve seen that we’ve just translated the question: Architecture consists of _architectural design decisions_, and all others are _nonarchitectural_. So what decisions are nonarchitectural? That is, what design decisions does the architect leave to the discretion of others? To answer this question, we return to the primary purpose of architecture, which is to assure the satisfaction of the system’s quality and behavioral requirements and business goals. The architect does this by making design decisions that manifest themselves in the system’s architectural structures. Thus, architectural decisions are ones that permit a system to meet its quality attribute and behavioral requirements. All other decisions are nonarchitectural.
+
+Clearly any design decisions resulting in element properties that are not visible — that is, make no difference outside the element — are nonarchitectural. A typical example is the selection of a data structure, along with the algorithms to manage and access that data structure. 
+
+You may have been hoping for a more concrete answer, such as 'the first three levels of module decomposition are architectural, but any subsequent decomposition is not.' Or, 'the classes, packages and their relations in a UML class diagram are architectural, but sequence diagrams are not.' Or 'defining the services of an SOA system is architectural, but designing the internal structure of each service provider component is not.' 
+
+But those don’t work because they draw arbitrary and artificial boundaries. Attempts like that to be practical end up being impractical because true architecture bleeds across those boundaries. 
+
+Here are some more sometimes-heard artificial definitions: 
+
+1. First, 'architecture is the small set of big design decisions.' Some people define 'small set' by insisting that an architecture document should be no more than 50 pages. Or 80. Or 30. Their feeling, apparently, is that architecture is the set of design decisions that you can squeeze into a given page quota, and everything beyond that is not. This is, of course, utter nonsense. 
+2. Another oft-heard nonanswer is 'architecture is what you get before you start adding detail to the design.' Terminology often directs our thinking, rather than serves it. A pernicious example that puts us in the wrong mind set is 'detailed design.' Detailed design is what many people say follows architecture. The term is everywhere, and needs to be stamped out. It implies that the difference between architectural and nonarchitectural design is something called 'detail.' Architecture is apparently not allowed to be detailed, because if it is, well, you’re doing detailed design then, aren’t you? Never mind that we have no idea how to measure 'detail' nor to set a threshold for when there is too much of it to be architectural. If your design starts to look 'detailed' then you aren’t doing architecture and you’ll be reported to the Detailed Design Police for overstepping your authority. More utter nonsense.
+
+It’s true that some architectural design decisions may lack much specificity; that is, they preserve freedom of choice for downstream designers. Some architectural design decisions may not be 'decisions' at all, but broad constraints. Plug-ins that populate your Web browser are an example. No architecture nails down the complete set, but the architecture does constrain new ones to meet certain standards and interfaces. Or the architect might describe an element by saying, 'The element delivers its computational result through this published interface, is thread-safe, puts no more than three messages on the network per invocation, and returns its answer in less than 20 ms.' The team implementing that element is free to make whatever design decisions they wish as long as they satisfy the architect’s architect’s prescription for it. 
+
+On the other hand, some architectural decisions can be quite 'detailed,' such as the adoption of specific protocols, an XML schema, or communication or technology standards. Such decisions are usually made for purposes of interoperability or various flavors of modifiability (such as scalability or extensibility).
+
+Even interfaces of elements, which some decry as 'obviously' outside the realm of architecture, can be supremely architectural. For instance, in a service-oriented architecture (SOA), components interact through published interfaces. Important design decisions made when defining these interfaces include the granularity of the operations, the data format, and the type of interaction (synchronous or asynchronous) for each operation. Or consider an element that processes data from a real-time sensor. Making this element’s interface process a stream as opposed to individual data elements will make an enormous difference in the ability of the element (and hence the system) to meet real-time performance requirements. This decision cannot be left up to the element’s development team; everything depends on it. 
+
+A legitimate question about detail does arise when considering modules and other hierarchical elements (A hierarchical element is any kind of element that can consist of like-kind elements. A module is a hierarchical element because modules consist of submodules, which are themselves modules. A task or a process is not a hierarchical element).
+
+When do you stop? When have you designed enough levels in the hierarchy? Are submodules enough, or does the architect need to design sub-sub-sub-submodules? Here’s a good test of our claim for when architecture stops. Module decomposition is about achieving independent development and modifiability. Both are achieved by carefully assigning coherent responsibilities to each module. When the modules you’ve designed are fine-grained enough to satisfy the system’s modifiability and independent development requirements, you’ve discharged your obligation as an architect.
+
+Finally, what is architectural is sensitive to context. Suppose the architect identifies an element but is content to sketch the element’s interface and behavior in broad terms. If the element being prescribed is very large and complex, the team developing it may choose to give it an internal substructure of its own, which for all the world looks like an architecture. And within the context of that element, it is. But in the context of the overall system, the substructure is not architectural but merely an internal design decision made by the development team for that element. 
+
+To summarize, architecture is design, but not all design is architectural. The architect draws the boundary between architectural and nonarchitectural design by making those decisions that need to be bound in order for the system to meet its development, behavioral, and quality goals. All other decisions can be left to downstream designers and implementers. Decisions are architectural or not, according to context. If structure is important to achieve your system’s goals, that structure is architectural. But designers of elements, or subsystems, that you assign may have to introduce structure of their own to meet their goals, in which case such structures are architectural: to them but not to you. 
+
 # Books
+- [Documenting Software Architectures - Views and Beyond - Paul Clements et al](https://www.amazon.com/Documenting-Software-Architectures-Views-Beyond/dp/0321552687)
 * [Software Architecture For Developers](https://leanpub.com/software-architecture-for-developers) - [Simon Brown](https://twitter.com/simonbrown) (2016)
 
 # My notes on Software Architecture for Developers
